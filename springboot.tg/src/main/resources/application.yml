@@ -1,0 +1,15 @@
+server:
+  error:
+    include-stacktrace: on_param
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    url: jdbc:mysql://localhost:3306/petme
+    password: root
+  jpa:
+    database: default
+    show-sql: 'true'
+    hibernate:
+      ddl-auto: update
