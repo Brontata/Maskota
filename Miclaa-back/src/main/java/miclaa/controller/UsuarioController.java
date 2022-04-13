@@ -8,11 +8,11 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController //força todos os retornos a serem strings
-@RequestMapping("usuario")
+@RequestMapping("usuarios")
 public class UsuarioController {
-    @GetMapping(path = "list")
+    @GetMapping
     public List<Usuario> list(){
-        return List.of(new Usuario("Joao")); //fiz uma lista para mockar mais usuarios se necessario
+        return List.of(new Usuario("Joao", 1, "SP", "Sorocaba", "admin", "admin@seila.com", "11122233301")); //fiz uma lista para mockar mais usuarios se necessario
     }
 
 
