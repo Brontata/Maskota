@@ -20,12 +20,9 @@ public class Usuario {
         this.cpf = cpf;
     }
 
-//------------------MetodosNossos------------------------------
-
-
-
-    //------------------gettersSetters------------------------------
-
+    // ------------------MetodosNossos------------------------------
+    // todo essa parte toda
+    // ------------------gettersSetters------------------------------
 
     public String getNome() {
         return nome;
