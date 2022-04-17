@@ -2,9 +2,7 @@ package miclaa.controller;
 
 import miclaa.domain.Mensagem;
 import miclaa.domain.Usuario;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -16,4 +14,7 @@ public class MensagemController {
         return List.of(new Mensagem(345, null, null, null)); // fiz uma lista para mockar mais mensagens se necessario
     }
 
+
 }
+
+
