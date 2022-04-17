@@ -1,5 +1,6 @@
 package miclaa.controller;
 
+import lombok.RequiredArgsConstructor;
 import miclaa.domain.Mensagem;
 import miclaa.domain.Usuario;
 import miclaa.service.UsuarioService;
@@ -8,19 +9,26 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/**
+ * Classe que contem os endpoints para Usuario
+ * /
+ */
 @RestController //força todos os retornos a serem strings
 @RequestMapping("usuarios")
+@RequiredArgsConstructor
 public class UsuarioController {
+
+    private final UsuarioService usuarioservice;
     @GetMapping
     public List<Usuario> list(){
-        return List.of(new Usuario("Joao", 1, "SP", "Sorocaba", "admin", "admin@seila.com", "11122233301")); //fiz uma lista para mockar mais usuarios se necessario
+        return UsuarioService.listAll();
     }
 
 
-    @PostMapping //Aula 9
-    public ResponseEntity<Usuario> save(@RequestBody Usuario usuario){
-        UsuarioService.save(anime);
-    }
+//    @PostMapping //Aula 9
+//    public ResponseEntity<Usuario> save(@RequestBody Usuario usuario){
+//        UsuarioService.save(anime);
+//    }
 
 
 }

@@ -43,5 +43,6 @@
     <orderEntry type="library" name="Maven: org.springframework:spring-aop:5.3.16" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-context:5.3.16" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-expression:5.3.16" level="project" />
+    <orderEntry type="library" name="Maven: org.projectlombok:lombok:1.18.22" level="project" />
   </component>
 </module>
