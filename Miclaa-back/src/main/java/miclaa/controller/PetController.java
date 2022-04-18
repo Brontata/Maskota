@@ -13,7 +13,7 @@ import java.util.List;
 public class PetController {
     @GetMapping
     public List<Pet> list() {
-        return List.of(new Pet("Slinky", 1, "SaoPaulo", 66, "Parceiro do Woody", "BoituvaCity")); // fiz uma lista para
+        return List.of(new Pet("Slinky", 1L, "SaoPaulo", 66, "Parceiro do Woody", "BoituvaCity")); // fiz uma lista para
                                                                                                   // mockar mais pets se
                                                                                                   // necessario
     }
