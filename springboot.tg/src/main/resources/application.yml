@@ -5,8 +5,8 @@ server:
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/petme?useSSL=false&allowPublicKeyRetrieval=true&createDatabaseIfNotExist=true
     username: root
-    url: jdbc:mysql://localhost:3306/petme
     password: root
   jpa:
     database: default
