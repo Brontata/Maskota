@@ -3,6 +3,7 @@ package miclaa.service;
 import miclaa.domain.Usuario;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
@@ -37,5 +38,15 @@ public class UsuarioService {
         usuarios.add(usuario);
         return usuario;
 
+    }
+
+    public void delete(long id) {
+                usuarios.remove(findById(id));
+    }
+
+
+    public void replace(Usuario usuario) {
+                delete(usuario.getId());
+                usuarios.add(usuario);
     }
 }
