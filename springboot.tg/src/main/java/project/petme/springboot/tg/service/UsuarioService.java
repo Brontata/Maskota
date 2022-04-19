@@ -2,14 +2,18 @@ package project.petme.springboot.tg.service;
 
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 import project.petme.springboot.tg.domain.Usuario;
+import project.petme.springboot.tg.domain.responses.UsuarioGetResponseBody;
 import project.petme.springboot.tg.repository.UsuarioRepository;
-import project.petme.springboot.tg.requests.UsuarioPostRequestBody;
-import project.petme.springboot.tg.requests.UsuarioPutRequestBody;
+import project.petme.springboot.tg.domain.requests.UsuarioPostRequestBody;
+import project.petme.springboot.tg.domain.requests.UsuarioPutRequestBody;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -17,10 +21,17 @@ import java.util.List;
 public class UsuarioService {
 
     private final UsuarioRepository usuarioRepository;
+    private final PasswordEncoder encoder;
     ModelMapper mapper = new ModelMapper();
 
-    public List<Usuario> listAll() {
-        return usuarioRepository.findAll();
+    public List<UsuarioGetResponseBody> listAll() {
+        List<UsuarioGetResponseBody> usuariosResponse = new ArrayList<>();
+        List<Usuario> usuarios = usuarioRepository.findAll();
+        for (Usuario usuario: usuarios) {
+            usuariosResponse.add(mapper.map(usuario, UsuarioGetResponseBody.class));
+        }
+
+        return usuariosResponse;
     }
 
     public Usuario findByIdOrThrowBadRequestException(long id) {
@@ -30,7 +41,7 @@ public class UsuarioService {
 
     public Usuario save(UsuarioPostRequestBody usuarioRequest) {
         Usuario usuario = mapper.map(usuarioRequest, Usuario.class);
-
+        usuario.setSenha(encoder.encode(usuario.getSenha())); //CRIPTOGRAFANDO SENHA
         usuarioRepository.save(usuario);
         return usuario;
     }
