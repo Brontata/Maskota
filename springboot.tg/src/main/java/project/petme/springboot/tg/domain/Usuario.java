@@ -15,14 +15,15 @@ import java.util.List;
 @Entity
 public class Usuario {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long idUsuario;
     private String username;
-    private String nome;
     private String email;
-    private String regiao; //regiao pertence ao pet ALTERAR
     private String senha;
-    private String telefone;
-    //private Imagem fotoPerfil;
-    private ArrayList<Pet> pets;
+    private String CPF;
+
+    @OneToMany
+    private List<Pet> pets;
+//    @OneToOne
+//    private Imagem fotoPerfil;
 }

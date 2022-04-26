@@ -1,7 +1,10 @@
 package project.petme.springboot.tg.domain.requests;
 
 import lombok.Data;
+import project.petme.springboot.tg.domain.Imagem;
 import project.petme.springboot.tg.domain.Pet;
+
+import java.util.List;
 
 @Data
 public class UsuarioPostRequestBody {
@@ -11,5 +14,6 @@ public class UsuarioPostRequestBody {
     private String regiao;
     private String senha;
     private String telefone;
-    private Pet pets;
+    private List<Pet> pets;
+//    private Imagem fotoPerfil;
 }

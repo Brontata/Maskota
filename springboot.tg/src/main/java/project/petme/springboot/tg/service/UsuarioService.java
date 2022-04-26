@@ -2,12 +2,16 @@ package project.petme.springboot.tg.service;
 
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
+import project.petme.springboot.tg.domain.Pet;
 import project.petme.springboot.tg.domain.Usuario;
+import project.petme.springboot.tg.domain.responses.PetResponseBody;
 import project.petme.springboot.tg.domain.responses.UsuarioGetResponseBody;
 import project.petme.springboot.tg.repository.UsuarioRepository;
 import project.petme.springboot.tg.domain.requests.UsuarioPostRequestBody;
@@ -22,26 +26,45 @@ public class UsuarioService {
 
     private final UsuarioRepository usuarioRepository;
     private final PasswordEncoder encoder;
-    ModelMapper mapper = new ModelMapper();
+//    Logger logger = LoggerFactory.getLogger(LoggingController.class);
+//    private final ModelMapper mapper = new ModelMapper();
 
-    public List<UsuarioGetResponseBody> listAll() {
-        List<UsuarioGetResponseBody> usuariosResponse = new ArrayList<>();
-        List<Usuario> usuarios = usuarioRepository.findAll();
-        for (Usuario usuario: usuarios) {
-            usuariosResponse.add(mapper.map(usuario, UsuarioGetResponseBody.class));
-        }
+    public List<Usuario> listAll() {
+//        logger.info("### Listando todos usuários ###");
+//        List<UsuarioGetResponseBody> usuariosResponse = new ArrayList<>();
+//        List<Usuario> usuarios = usuarioRepository.findAll();
+//        List<PetResponseBody> petsResponse = new ArrayList<>();
+//
+//
+//        for (Usuario usuario: usuarios) {               //Converte o objeto usuario para UsuarioResponse
+//            UsuarioGetResponseBody usuarioSalvo = mapper.map(usuario, UsuarioGetResponseBody.class);
+//
+//            for (Pet pet : usuario.getPets()){
+//                PetResponseBody petSalvo = mapper.map(pet, PetResponseBody.class);
+//                petsResponse.add(petSalvo);
+//            }
+//
+//            usuariosResponse.add(usuarioSalvo);
+//        }
 
-        return usuariosResponse;
+        return usuarioRepository.findAll();
     }
 
     public Usuario findByIdOrThrowBadRequestException(long id) {
+//        logger.info("### Procurando usuário por ID ###");
         return  usuarioRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Usuario nao encontrado"));
     }
 
-    public Usuario save(UsuarioPostRequestBody usuarioRequest) {
-        Usuario usuario = mapper.map(usuarioRequest, Usuario.class);
+    public Usuario save(Usuario usuario) {
+//        logger.info("### Salvando usuário ###");
+//        Usuario usuario = mapper.map(usuarioRequest, Usuario.class);
         usuario.setSenha(encoder.encode(usuario.getSenha())); //CRIPTOGRAFANDO SENHA
+
+        if(usuario.getPets() == null){
+            List<Pet> listaPets = new ArrayList<>();
+            usuario.setPets(listaPets);
+        }
         usuarioRepository.save(usuario);
         return usuario;
     }
@@ -50,10 +73,8 @@ public class UsuarioService {
         usuarioRepository.delete(findByIdOrThrowBadRequestException(id));
     }
 
-    public void replace(UsuarioPutRequestBody usuarioPutRequestBody) {
-        findByIdOrThrowBadRequestException(usuarioPutRequestBody.getIdUsuario());
-
-        Usuario usuario = mapper.map(usuarioPutRequestBody, Usuario.class);
-        usuarioRepository.save(usuario);
+    public void replace(Usuario usuario) {
+        //Usuario usuario = mapper.map(usuarioPutRequestBody, Usuario.class);
+        usuarioRepository.save(findByIdOrThrowBadRequestException(usuario.getIdUsuario()));
     }
 }

@@ -1,19 +1,16 @@
 package project.petme.springboot.tg.controller;
 
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
-import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
+import project.petme.springboot.tg.domain.Pet;
 import project.petme.springboot.tg.domain.Usuario;
-import project.petme.springboot.tg.domain.requests.UsuarioPostRequestBody;
-import project.petme.springboot.tg.domain.requests.UsuarioPutRequestBody;
-import project.petme.springboot.tg.domain.responses.UsuarioGetResponseBody;
+import project.petme.springboot.tg.service.PetService;
 import project.petme.springboot.tg.service.UsuarioService;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -22,11 +19,16 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UsuarioController {
 
+    @Autowired
     private final UsuarioService usuarioService;
+
+    @Autowired
+    private final PetService petService;
+
     private final PasswordEncoder encoder;
 
     @GetMapping
-    public ResponseEntity<List<UsuarioGetResponseBody>> list(){
+    public ResponseEntity<List<Usuario>> list(){
         return new ResponseEntity<>(usuarioService.listAll(), HttpStatus.OK);
     }
 
@@ -36,8 +38,18 @@ public class UsuarioController {
     }
 
     @PostMapping
-    public ResponseEntity<Usuario> save(@RequestBody UsuarioPostRequestBody usuario){
+    public ResponseEntity<Usuario> save(@RequestBody Usuario usuario){
+        System.out.println("### CADASTRANDO USUARIO ###");
         return new ResponseEntity<>(usuarioService.save(usuario), HttpStatus.CREATED);
+    }
+
+    @PostMapping(path = "/{id}/pets")
+    public ResponseEntity<Pet> savePet(@PathVariable long id, @RequestBody Pet pet){
+        Usuario usuario = usuarioService.findByIdOrThrowBadRequestException(id);
+        pet.setUsuario(usuario);
+        Pet petSalvo = petService.save(pet);
+
+        return new ResponseEntity<>(petSalvo, HttpStatus.CREATED);
     }
 
     @DeleteMapping(path = "/{id}")
@@ -47,8 +59,9 @@ public class UsuarioController {
     }
 
     @PutMapping(path = "/{id}")
-    public ResponseEntity<Void> replace(@RequestBody UsuarioPutRequestBody usuario) {
+    public ResponseEntity<Void> replace(@RequestBody Usuario usuario) {
         usuarioService.replace(usuario);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+
 }

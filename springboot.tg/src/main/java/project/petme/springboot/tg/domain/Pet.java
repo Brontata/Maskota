@@ -1,21 +1,20 @@
 package project.petme.springboot.tg.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
 @Entity
+@Setter
 public class Pet {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Getter
     private Long idPet;
+    @Getter
     private String nome;
+
+    @ManyToOne
+    @JoinColumn(name = "usuario_id_usuario")
+    private Usuario usuario;
 }
