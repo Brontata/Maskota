@@ -1,5 +1,6 @@
 package project.petme.springboot.tg.domain;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -17,8 +18,10 @@ public class Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long idUsuario;
+    @Column(unique = true)
     private String username;
     private String email;
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String senha;
     private String CPF;
 

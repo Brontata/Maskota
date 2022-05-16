@@ -19,6 +19,7 @@ import project.petme.springboot.tg.domain.requests.UsuarioPutRequestBody;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -56,6 +57,11 @@ public class UsuarioService {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Usuario nao encontrado"));
     }
 
+    public Usuario findByUsernameOrThrowBadRequestException(String username){
+        return usuarioRepository.findByUsername(username)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Usuario " + username + " nao encontrado"));
+    }
+
     public Usuario save(Usuario usuario) {
 //        logger.info("### Salvando usuário ###");
 //        Usuario usuario = mapper.map(usuarioRequest, Usuario.class);
@@ -65,6 +71,12 @@ public class UsuarioService {
             List<Pet> listaPets = new ArrayList<>();
             usuario.setPets(listaPets);
         }
+
+        Optional<Usuario> validaExistencia = usuarioRepository.findByUsername(usuario.getUsername());
+        if(!validaExistencia.isEmpty()){
+            throw new RuntimeException("O nome de usuario ja esta sendo utilizado");
+        }
+
         usuarioRepository.save(usuario);
         return usuario;
     }

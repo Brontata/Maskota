@@ -32,9 +32,14 @@ public class UsuarioController {
         return new ResponseEntity<>(usuarioService.listAll(), HttpStatus.OK);
     }
 
-    @GetMapping(path = "/{id}")
-    public ResponseEntity<Usuario> findById(@PathVariable long id){
-        return ResponseEntity.ok(usuarioService.findByIdOrThrowBadRequestException(id));
+//    @GetMapping(path = "/{id}")
+//    public ResponseEntity<Usuario> findById(@PathVariable long id){
+//        return ResponseEntity.ok(usuarioService.findByIdOrThrowBadRequestException(id));
+//    }
+
+    @GetMapping(path = "/{username}")
+    public ResponseEntity<Usuario> findByUsername(@PathVariable String username){
+        return ResponseEntity.ok(usuarioService.findByUsernameOrThrowBadRequestException(username));
     }
 
     @PostMapping
