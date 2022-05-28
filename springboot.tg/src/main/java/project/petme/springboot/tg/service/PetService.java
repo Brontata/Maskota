@@ -5,7 +5,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 import project.petme.springboot.tg.domain.Pet;
-import project.petme.springboot.tg.domain.Usuario;
 import project.petme.springboot.tg.repository.PetRepository;
 
 import java.util.List;

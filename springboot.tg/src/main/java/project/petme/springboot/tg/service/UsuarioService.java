@@ -1,21 +1,13 @@
 package project.petme.springboot.tg.service;
 
 import lombok.RequiredArgsConstructor;
-import org.modelmapper.ModelMapper;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 import project.petme.springboot.tg.domain.Pet;
 import project.petme.springboot.tg.domain.Usuario;
-import project.petme.springboot.tg.domain.responses.PetResponseBody;
-import project.petme.springboot.tg.domain.responses.UsuarioGetResponseBody;
 import project.petme.springboot.tg.repository.UsuarioRepository;
-import project.petme.springboot.tg.domain.requests.UsuarioPostRequestBody;
-import project.petme.springboot.tg.domain.requests.UsuarioPutRequestBody;
 
 import java.util.ArrayList;
 import java.util.List;

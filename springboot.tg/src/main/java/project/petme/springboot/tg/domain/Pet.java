@@ -1,6 +1,7 @@
 package project.petme.springboot.tg.domain;
 
-import lombok.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 
@@ -13,6 +14,8 @@ public class Pet {
     private Long idPet;
     @Getter
     private String nome;
+    @Getter
+    private String[] imagens;
 
     @ManyToOne
     @JoinColumn(name = "usuario_id_usuario")

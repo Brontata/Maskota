@@ -4,10 +4,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.beans.factory.annotation.Required;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -18,7 +16,6 @@ public class Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long idUsuario;
-    @Column(unique = true)
     private String username;
     private String email;
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
@@ -27,6 +24,6 @@ public class Usuario {
 
     @OneToMany
     private List<Pet> pets;
-//    @OneToOne
-//    private Imagem fotoPerfil;
+
+    private String fotoPerfil;
 }
