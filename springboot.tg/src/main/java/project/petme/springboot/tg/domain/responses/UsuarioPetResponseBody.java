@@ -1,14 +1,13 @@
 package project.petme.springboot.tg.domain.responses;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
-import java.util.List;
 
 @Data
-public class UsuarioGetResponseBody {
+public class UsuarioPetResponseBody {
     private Long idUsuario;
     private String username;
     private String email;
-    private List<GetAllUsuariosPetsResponseBody> pets;
     private String fotoPerfil;
 }

@@ -1,6 +1,7 @@
 package project.petme.springboot.tg.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -8,6 +9,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import project.petme.springboot.tg.domain.Pet;
 import project.petme.springboot.tg.domain.Usuario;
+import project.petme.springboot.tg.domain.responses.GetAllUsuariosResponseBody;
+import project.petme.springboot.tg.domain.responses.PetResponseBody;
+import project.petme.springboot.tg.domain.responses.UsuarioGetResponseBody;
+import project.petme.springboot.tg.domain.responses.UsuarioPetResponseBody;
 import project.petme.springboot.tg.service.PetService;
 import project.petme.springboot.tg.service.UsuarioService;
 
@@ -19,6 +24,8 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UsuarioController {
 
+    private final ModelMapper mapper = new ModelMapper();
+
     @Autowired
     private final UsuarioService usuarioService;
 
@@ -28,7 +35,7 @@ public class UsuarioController {
     private final PasswordEncoder encoder;
 
     @GetMapping
-    public ResponseEntity<List<Usuario>> list(){
+    public ResponseEntity<List<GetAllUsuariosResponseBody>> list(){
         return new ResponseEntity<>(usuarioService.listAll(), HttpStatus.OK);
     }
 
@@ -38,7 +45,7 @@ public class UsuarioController {
 //    }
 
     @GetMapping(path = "/{username}")
-    public ResponseEntity<Usuario> findByUsername(@PathVariable String username){
+    public ResponseEntity<UsuarioGetResponseBody> findByUsername(@PathVariable String username){
         return ResponseEntity.ok(usuarioService.findByUsernameOrThrowBadRequestException(username));
     }
 
@@ -49,12 +56,17 @@ public class UsuarioController {
     }
 
     @PostMapping(path = "/{id}/pets")
-    public ResponseEntity<Pet> savePet(@PathVariable long id, @RequestBody Pet pet){
+    public ResponseEntity<PetResponseBody> savePet(@PathVariable long id, @RequestBody Pet pet){
         Usuario usuario = usuarioService.findByIdOrThrowBadRequestException(id);
         pet.setUsuario(usuario);
         Pet petSalvo = petService.save(pet);
+        petService.petUserRelationship(usuario.getIdUsuario(), petSalvo.getIdPet());
 
-        return new ResponseEntity<>(petSalvo, HttpStatus.CREATED);
+        PetResponseBody petResponse = mapper.map(petSalvo, PetResponseBody.class);
+        UsuarioPetResponseBody usuarioPetResponseBody = mapper.map(petSalvo.getUsuario(), UsuarioPetResponseBody.class);
+        petResponse.setUsuario(usuarioPetResponseBody);
+
+        return new ResponseEntity<>(petResponse, HttpStatus.CREATED);
     }
 
     @DeleteMapping(path = "/{id}")
@@ -69,4 +81,8 @@ public class UsuarioController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
+    @GetMapping(path = "/pets")
+    public ResponseEntity<List<PetResponseBody>> listPets(){
+        return new ResponseEntity<>(petService.listAll(), HttpStatus.OK);
+    }
 }
