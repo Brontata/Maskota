@@ -9,6 +9,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import project.petme.springboot.tg.domain.Pet;
 import project.petme.springboot.tg.domain.Usuario;
+import project.petme.springboot.tg.domain.requests.UsuarioRecoverySenha;
 import project.petme.springboot.tg.domain.responses.GetAllUsuariosResponseBody;
 import project.petme.springboot.tg.domain.responses.PetResponseBody;
 import project.petme.springboot.tg.domain.responses.UsuarioGetResponseBody;
@@ -55,6 +56,12 @@ public class UsuarioController {
         return new ResponseEntity<>(usuarioService.save(usuario), HttpStatus.CREATED);
     }
 
+    @PostMapping(path = "/recoveryPassword")
+    public ResponseEntity<Void> recoveryPassword (@RequestBody UsuarioRecoverySenha usuarioRecovery) {
+        usuarioService.recoveryPassword(usuarioRecovery);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
     @PostMapping(path = "/{id}/pets")
     public ResponseEntity<PetResponseBody> savePet(@PathVariable long id, @RequestBody Pet pet){
         Usuario usuario = usuarioService.findByIdOrThrowBadRequestException(id);
@@ -82,7 +89,24 @@ public class UsuarioController {
     }
 
     @GetMapping(path = "/pets")
-    public ResponseEntity<List<PetResponseBody>> listPets(){
-        return new ResponseEntity<>(petService.listAll(), HttpStatus.OK);
+    public ResponseEntity<List<PetResponseBody>> listPets(@RequestParam(name = "isAtivo", required = false, defaultValue = "true") boolean isAtivo){
+        return new ResponseEntity<>(petService.listAll(isAtivo), HttpStatus.OK);
+    }
+
+    @GetMapping(path = "/pets/{nome}")
+    public ResponseEntity<List<PetResponseBody>> findPetsByName(@PathVariable String nome){
+        return new ResponseEntity<>(petService.findByName(nome), HttpStatus.OK);
+    }
+
+    @PutMapping(path = "/pets/{id}")
+    public ResponseEntity<Void> replacePet(@RequestBody Pet pet) {
+        petService.replace(pet);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @DeleteMapping(path = "/pets/{id}")
+    public ResponseEntity<Void> deletePet(@PathVariable long id) {
+        petService.delete(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

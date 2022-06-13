@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 import project.petme.springboot.tg.domain.Pet;
 import project.petme.springboot.tg.domain.Usuario;
+import project.petme.springboot.tg.domain.requests.UsuarioRecoverySenha;
 import project.petme.springboot.tg.domain.responses.GetAllUsuariosPetsResponseBody;
 import project.petme.springboot.tg.domain.responses.GetAllUsuariosResponseBody;
 import project.petme.springboot.tg.domain.responses.UsuarioGetResponseBody;
@@ -29,22 +30,6 @@ public class UsuarioService {
 //    Logger logger = LoggerFactory.getLogger(LoggingController.class);
 
     public List<GetAllUsuariosResponseBody> listAll() {
-//        logger.info("### Listando todos usuários ###");
-//        List<UsuarioGetResponseBody> usuariosResponse = new ArrayList<>();
-//        List<Usuario> usuarios = usuarioRepository.findAll();
-//        List<PetResponseBody> petsResponse = new ArrayList<>();
-//
-//
-//        for (Usuario usuario: usuarios) {               //Converte o objeto usuario para UsuarioResponse
-//            UsuarioGetResponseBody usuarioSalvo = mapper.map(usuario, UsuarioGetResponseBody.class);
-//
-//            for (Pet pet : usuario.getPets()){
-//                PetResponseBody petSalvo = mapper.map(pet, PetResponseBody.class);
-//                petsResponse.add(petSalvo);
-//            }
-//
-//            usuariosResponse.add(usuarioSalvo);
-//        }
         List<Usuario> usuarios = usuarioRepository.findAll();
         List<GetAllUsuariosResponseBody> usuariosResponse = new ArrayList<>();
 
@@ -67,9 +52,6 @@ public class UsuarioService {
 //        logger.info("### Procurando usuário por ID ###");
         return  usuarioRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Usuario nao encontrado"));
-
-
-
     }
 
     public UsuarioGetResponseBody findByUsernameOrThrowBadRequestException(String username){
@@ -120,5 +102,19 @@ public class UsuarioService {
 
         usuarioRepository.save(usuarioSalvo);
         //usuarioRepository.save(findByIdOrThrowBadRequestException(usuario.getIdUsuario()));
+    }
+
+    public void recoveryPassword(UsuarioRecoverySenha usuarioRecovery) {
+        Usuario usuario = usuarioRepository.findByUsername(usuarioRecovery.getUsername())
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Usuario " + usuarioRecovery.getUsername() + " nao encontrado"));
+
+        if (usuarioRecovery.getEmail().equals(usuario.getEmail()) &&
+                usuarioRecovery.getCPF().equals(usuario.getCPF()) &&
+                usuarioRecovery.getUsername().equals(usuario.getUsername())) {
+            usuario.setSenha(encoder.encode(usuarioRecovery.getNovaSenha()));
+            usuarioRepository.save(usuario);
+        } else {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Os dados fornecidos estão incorretos ");
+        }
     }
 }

@@ -11,6 +11,15 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @ComponentScan
 public class Application {
 
+	/*TODO
+	* 	- Edição de   PET
+	*	- Deleção de  PET
+	*	- Curtidas no PET
+	*	- Arrumar os campos
+	*	- Arrumar as imagens do PET
+	* 	- Edição de usuário também que não tá 100%
+	* */
+
 	public static void main(String[] args) {
 		SpringApplication.run(Application.class, args);
 	}

@@ -7,6 +7,8 @@ import java.util.List;
 @Data
 public class UsuarioGetResponseBody {
     private Long idUsuario;
+    private String estado;
+    private String cidade;
     private String username;
     private String email;
     private List<GetAllUsuariosPetsResponseBody> pets;

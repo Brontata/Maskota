@@ -8,6 +8,8 @@ import lombok.Data;
 public class UsuarioPetResponseBody {
     private Long idUsuario;
     private String username;
+    private String estado;
+    private String cidade;
     private String email;
     private String fotoPerfil;
 }

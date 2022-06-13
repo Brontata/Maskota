@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 import project.petme.springboot.tg.domain.Pet;
 
 import javax.transaction.Transactional;
+import java.util.Optional;
 
 @Repository
 public interface PetRepository extends JpaRepository<Pet, Long> {

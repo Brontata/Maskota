@@ -11,6 +11,8 @@ import java.util.List;
 public class GetAllUsuariosResponseBody {
     private Long idUsuario;
     private String username;
+    private String estado;
+    private String cidade;
     private String email;
     private List<GetAllUsuariosPetsResponseBody> pets;
     private String fotoPerfil;
