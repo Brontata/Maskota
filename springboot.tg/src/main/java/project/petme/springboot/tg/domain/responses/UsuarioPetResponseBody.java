@@ -12,4 +12,5 @@ public class UsuarioPetResponseBody {
     private String cidade;
     private String email;
     private String fotoPerfil;
+    private boolean isAtivo;
 }

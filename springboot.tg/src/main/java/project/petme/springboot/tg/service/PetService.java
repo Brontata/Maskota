@@ -78,20 +78,57 @@ public class PetService {
     }
 
     public Pet save(Pet pet) {
-        petRepository.save(pet);
-        return pet;
+        pet.setAtivo(true);
+        Pet petSalvo = petRepository.save(pet);
+
+        return petSalvo;
     }
 
     public void petUserRelationship(Long id_usuario, Long id_pet){
         petRepository.petUserRelationship(id_usuario, id_pet);
     }
 
-    public void replace(Pet pet){
-        //TODO
+    public void replace(Pet pet, long idPet, long idUser){
+        Pet petSalvo = findByIdOrThrowBadRequestException(idPet);
+
+        if (petSalvo.getUsuario().getIdUsuario() != idUser){
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "O pet não pertence ao usuário informado");
+        }
+
+        if (!pet.getNumero().trim().isEmpty()){
+            petSalvo.setNumero(pet.getNumero());
+        }
+
+        if (!pet.getEstado().trim().isEmpty()){
+            petSalvo.setEstado(pet.getEstado());
+        }
+
+        if (!pet.getCidade().trim().isEmpty()){
+            petSalvo.setCidade(pet.getCidade());
+        }
+
+        if (!pet.getDescricao().trim().isEmpty()){
+            petSalvo.setDescricao(pet.getDescricao());
+        }
+
+        if (!pet.getFotoPet().trim().isEmpty()){
+            petSalvo.setFotoPet(pet.getFotoPet());
+        }
+
+        petRepository.save(petSalvo);
     }
 
-    public void delete(long id) {
-        Pet pet = findByIdOrThrowBadRequestException(id);
+    public void delete(long idPet, long idUser) {
+        Pet pet = findByIdOrThrowBadRequestException(idPet);
+
+        if (pet.getUsuario().getIdUsuario() != idUser){
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "O pet não pertence ao usuário informado");
+        }
+
+        if (pet.isAtivo() == false){
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "O pet já está desativado");
+        }
+
         pet.setAtivo(false);
         petRepository.save(pet);
     }

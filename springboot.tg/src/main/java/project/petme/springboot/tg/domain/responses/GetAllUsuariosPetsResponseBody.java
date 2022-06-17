@@ -10,5 +10,6 @@ public class GetAllUsuariosPetsResponseBody {
     private String estado;
     private String cidade;
     private String descricao;
-    private String[] imagens;
+    private String fotoPet;
+    private boolean isAtivo;
 }

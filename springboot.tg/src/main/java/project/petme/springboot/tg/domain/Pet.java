@@ -20,7 +20,7 @@ public class Pet {
 //    private Curtidas curtidas;
     private String descricao;
     @Lob
-    private String[] imagens;
+    private String fotoPet;
     @Column(columnDefinition="BOOLEAN DEFAULT true")
     private boolean isAtivo;
 

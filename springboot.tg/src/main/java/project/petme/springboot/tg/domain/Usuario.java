@@ -24,6 +24,7 @@ public class Usuario {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String senha;
     private String CPF;
+    private boolean isAtivo;
 
     @OneToMany
     private List<Pet> pets;

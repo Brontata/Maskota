@@ -13,4 +13,5 @@ public class UsuarioGetResponseBody {
     private String email;
     private List<GetAllUsuariosPetsResponseBody> pets;
     private String fotoPerfil;
+    private boolean isAtivo;
 }
