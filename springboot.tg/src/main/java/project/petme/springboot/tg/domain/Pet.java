@@ -1,9 +1,12 @@
 package project.petme.springboot.tg.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 @Data
@@ -19,6 +22,10 @@ public class Pet {
     private String cidade;
 //    private Curtidas curtidas;
     private String descricao;
+    private int quantidadeCurtidas;
+    @OneToMany
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private List<Curtida> curtidas;
     @Lob
     private String fotoPet;
     @Column(columnDefinition="BOOLEAN DEFAULT true")

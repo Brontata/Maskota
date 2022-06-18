@@ -15,6 +15,7 @@ import project.petme.springboot.tg.domain.responses.GetAllUsuariosResponseBody;
 import project.petme.springboot.tg.domain.responses.PetResponseBody;
 import project.petme.springboot.tg.domain.responses.UsuarioGetResponseBody;
 import project.petme.springboot.tg.domain.responses.UsuarioPetResponseBody;
+import project.petme.springboot.tg.service.CurtidaUsuarioPetService;
 import project.petme.springboot.tg.service.PetService;
 import project.petme.springboot.tg.service.UsuarioService;
 
@@ -33,6 +34,9 @@ public class UsuarioController {
 
     @Autowired
     private final PetService petService;
+
+    @Autowired
+    private final CurtidaUsuarioPetService curtidaUsuarioPetService;
 
     private final PasswordEncoder encoder;
 
@@ -121,5 +125,12 @@ public class UsuarioController {
     public ResponseEntity<Void> deletePet(@PathVariable long idUser, @PathVariable long idPet) {
         petService.delete(idUser, idPet);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @PostMapping(path = "/{idUser}/pets/{idPet}/curtir") //CURTIR OU DESCURTIR PET
+    public ResponseEntity<Void> curtePet(@PathVariable long idUser, @PathVariable long idPet) {
+        curtidaUsuarioPetService.curtir(idUser, idPet);
+        petService.atualizaCurtidasPet(idPet, curtidaUsuarioPetService.curtidasPet(idPet).size());
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

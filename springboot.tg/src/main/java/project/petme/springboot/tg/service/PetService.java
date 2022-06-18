@@ -5,11 +5,11 @@ import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
+import project.petme.springboot.tg.domain.Curtida;
 import project.petme.springboot.tg.domain.Pet;
 import project.petme.springboot.tg.domain.Usuario;
-import project.petme.springboot.tg.domain.responses.PetResponseBody;
-import project.petme.springboot.tg.domain.responses.UsuarioGetResponseBody;
-import project.petme.springboot.tg.domain.responses.UsuarioPetResponseBody;
+import project.petme.springboot.tg.domain.responses.*;
+import project.petme.springboot.tg.repository.CurtidaRepository;
 import project.petme.springboot.tg.repository.PetRepository;
 
 import javax.persistence.EntityManager;
@@ -22,12 +22,14 @@ import java.util.stream.Collectors;
 public class PetService {
 
     private final PetRepository petRepository;
+    private final CurtidaRepository curtidaRepository;
     private final ModelMapper mapper = new ModelMapper();
 
     public List<PetResponseBody> listAll(boolean isAtivo){
 
         List<Pet> listaPets = petRepository.findAll();
-        
+        List<Curtida> curtidas = curtidaRepository.findAll();
+
         List<PetResponseBody> petsListResponse = new ArrayList<>();
         for (Pet pet :listaPets) {
             PetResponseBody petResponse = mapper.map(pet, PetResponseBody.class);
@@ -118,7 +120,7 @@ public class PetService {
         petRepository.save(petSalvo);
     }
 
-    public void delete(long idPet, long idUser) {
+    public void delete(long idUser, long idPet) {
         Pet pet = findByIdOrThrowBadRequestException(idPet);
 
         if (pet.getUsuario().getIdUsuario() != idUser){
@@ -131,5 +133,28 @@ public class PetService {
 
         pet.setAtivo(false);
         petRepository.save(pet);
+    }
+
+    public void atualizaCurtidasPet(long idPet, int quantidadeCurtidas){
+        Pet petSalvo = findByIdOrThrowBadRequestException(idPet);
+
+        List<Curtida> curtidas = curtidaRepository.findAll();
+        List<GetAllCurtidas> curtidasResponse = new ArrayList<>();
+
+        curtidas = curtidas.stream()
+                .filter(p -> p.getPet().getIdPet() == petSalvo.getIdPet() && p.isCurtido()).collect(Collectors.toList());
+
+        for (Curtida curtida: curtidas) {
+            GetAllCurtidas curtidaSalva = mapper.map(curtida, GetAllCurtidas.class);
+            GetAllCurtidasUsuario usuario = mapper.map(curtida.getUsuario(), GetAllCurtidasUsuario.class);
+            curtidaSalva.setUsuario(usuario);
+
+            curtidasResponse.add(curtidaSalva);
+        }
+
+        petSalvo.setQuantidadeCurtidas(quantidadeCurtidas);
+        petSalvo.setCurtidas(curtidas);
+
+        petRepository.save(petSalvo);
     }
 }

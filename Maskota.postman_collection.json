@@ -13,7 +13,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"username\":\"cecato\",\r\n    \"senha\":\"123\",\r\n    \"cpf\":\"474.985.728-93\",\r\n    \"email\":\"luizjarduli@gmail.com\",\r\n    \"fotoPerfil\":\"foto do luiz\"}",
+					"raw": "{\r\n    \"username\":\"lauraa\",\r\n    \"senha\":\"123\",\r\n    \"cpf\":\"654987\",\r\n    \"email\":\"lauara@petme.com\",\r\n    \"fotoPerfil\":\"laura\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -34,13 +34,44 @@
 			"response": []
 		},
 		{
+			"name": "Curtir pet",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\":\"cecato\",\r\n    \"senha\":\"123\",\r\n    \"cpf\":\"474.985.728-93\",\r\n    \"email\":\"luizjarduli@gmail.com\",\r\n    \"fotoPerfil\":\"foto do luiz\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/usuarios/2/pets/8/curtir",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"usuarios",
+						"2",
+						"pets",
+						"8",
+						"curtir"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "Recuperar senha",
 			"request": {
 				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"cpf\": \"123456789\",\r\n  \"email\": \"cecato@gmail.com\",\r\n  \"novaSenha\": \"12345\",\r\n  \"username\": \"cecato\"\r\n}",
+					"raw": "{\r\n  \"cpf\": \"654987\",\r\n  \"email\": \"laura@petme.com\",\r\n  \"novaSenha\": \"12345\",\r\n  \"username\": \"laura\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -68,7 +99,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"cidade\": \"Sorocaba\",\r\n  \"descricao\": \"Ops, não é bolo, é o Januário\",\r\n  \"estado\": \"SP\",\r\n  \"fotoPet\": \"fotoDoJanuario\",\r\n  \"nome\": \"Januario\",\r\n  \"numero\": \"15 99999-9999\"\r\n}",
+					"raw": "{\r\n  \"cidade\": \"Sorocity\",\r\n  \"descricao\": \"Cachorra doida\",\r\n  \"estado\": \"Saint Paul\",\r\n  \"fotoPet\": \"fotoDaMalu\",\r\n  \"nome\": \"Yasmin\",\r\n  \"numero\": \"15 99999-9999\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -76,14 +107,14 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:8080/usuarios/1/pets",
+					"raw": "localhost:8080/usuarios/4/pets",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
 						"usuarios",
-						"1",
+						"4",
 						"pets"
 					]
 				}
@@ -97,7 +128,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"username\": \"cecato\",\r\n    \"senha\": \"123456\"\r\n}",
+					"raw": "{\r\n    \"username\": \"laura\",\r\n    \"senha\": \"12345\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -210,14 +241,14 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:8080/usuarios/cecato",
+					"raw": "localhost:8080/usuarios/laura",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
 						"usuarios",
-						"cecato"
+						"laura"
 					]
 				}
 			},
@@ -241,7 +272,7 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:8080/usuarios/pets/J",
+					"raw": "localhost:8080/usuarios/pets/malu",
 					"host": [
 						"localhost"
 					],
@@ -249,7 +280,7 @@
 					"path": [
 						"usuarios",
 						"pets",
-						"J"
+						"malu"
 					]
 				}
 			},
@@ -298,16 +329,16 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:8080/usuarios/1/pets/1",
+					"raw": "localhost:8080/usuarios/4/pets/7",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
 						"usuarios",
-						"1",
+						"4",
 						"pets",
-						"1"
+						"7"
 					]
 				}
 			},
