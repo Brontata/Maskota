@@ -1,2 +1,2 @@
-# PetMe
-Backend do TG - Grupo Petme
+# MASKOTA
+Backend do TG - Grupo Maskota
