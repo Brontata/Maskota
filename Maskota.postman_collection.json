@@ -287,6 +287,27 @@
 			"response": []
 		},
 		{
+			"name": "Pesquisa pet por id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/usuarios/pets/6/id",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"usuarios",
+						"pets",
+						"6",
+						"id"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "Deleta usuario",
 			"request": {
 				"method": "DELETE",

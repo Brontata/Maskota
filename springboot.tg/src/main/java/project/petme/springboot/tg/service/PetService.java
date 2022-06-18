@@ -157,4 +157,14 @@ public class PetService {
 
         petRepository.save(petSalvo);
     }
+
+    public PetResponseBody pesquisaPetId(long idPet) {
+        Pet petSalvo = findByIdOrThrowBadRequestException(idPet);
+        PetResponseBody petResponse = mapper.map(petSalvo, PetResponseBody.class);
+
+        UsuarioPetResponseBody usuarioResponse = mapper.map(petSalvo.getUsuario(), UsuarioPetResponseBody.class);
+        petResponse.setUsuario(usuarioResponse);
+
+        return petResponse;
+    }
 }

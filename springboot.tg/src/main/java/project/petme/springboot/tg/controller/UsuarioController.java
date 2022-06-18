@@ -115,6 +115,11 @@ public class UsuarioController {
         return new ResponseEntity<>(petService.findByName(nome), HttpStatus.OK);
     }
 
+    @GetMapping(path = "/pets/{id}/id") //PESQUISA PET PELO NOME
+    public ResponseEntity<PetResponseBody> findPetsById(@PathVariable long id){
+        return new ResponseEntity<>(petService.pesquisaPetId(id), HttpStatus.OK);
+    }
+
     @PutMapping(path = "/{idUser}/pets/{idPet}") //EDICAO DE PET
     public ResponseEntity<Void> replacePet(@RequestBody Pet pet, @PathVariable long idUser, @PathVariable long idPet) {
         petService.replace(pet, idPet, idUser);
