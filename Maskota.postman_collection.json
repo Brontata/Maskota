@@ -1,0 +1,485 @@
+{
+	"info": {
+		"_postman_id": "898c3569-2ae6-4bd1-9089-08adad5ff56a",
+		"name": "Maskota",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "21506402"
+	},
+	"item": [
+		{
+			"name": "Criar usuario",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\":\"lauraa\",\r\n    \"senha\":\"123\",\r\n    \"cpf\":\"654987\",\r\n    \"email\":\"lauara@petme.com\",\r\n    \"fotoPerfil\":\"laura\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/usuarios",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"usuarios"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Curtir pet",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\":\"cecato\",\r\n    \"senha\":\"123\",\r\n    \"cpf\":\"474.985.728-93\",\r\n    \"email\":\"luizjarduli@gmail.com\",\r\n    \"fotoPerfil\":\"foto do luiz\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/usuarios/2/pets/8/curtir",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"usuarios",
+						"2",
+						"pets",
+						"8",
+						"curtir"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Recuperar senha",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"cpf\": \"654987\",\r\n  \"email\": \"laura@petme.com\",\r\n  \"novaSenha\": \"12345\",\r\n  \"username\": \"laura\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/usuarios/recoveryPassword",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"usuarios",
+						"recoveryPassword"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Criar Pet",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"cidade\": \"Sorocity\",\r\n  \"descricao\": \"Cachorra doida\",\r\n  \"estado\": \"Saint Paul\",\r\n  \"fotoPet\": \"fotoDaMalu\",\r\n  \"nome\": \"Yasmin\",\r\n  \"numero\": \"15 99999-9999\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/usuarios/4/pets",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"usuarios",
+						"4",
+						"pets"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"laura\",\r\n    \"senha\": \"12345\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/login",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Listar todos pets",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"cidade\": \"Sorocaba\",\r\n  \"descricao\": \"Outro gatinho do cecato mto fofo\",\r\n  \"estado\": \"SP\",\r\n  \"fotoPet\": \"fotoDoPet2\",\r\n  \"nome\": \"Galego\",\r\n  \"numero\": \"15 99999-9999\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/usuarios/pets",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"usuarios",
+						"pets"
+					],
+					"query": [
+						{
+							"key": "isAtivo",
+							"value": "false",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Listar todos usuarios",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"cidade\": \"Sorocaba\",\r\n  \"descricao\": \"Outro gatinho do cecato mto fofo\",\r\n  \"estado\": \"SP\",\r\n  \"fotoPet\": \"fotoDoPet2\",\r\n  \"nome\": \"Galego\",\r\n  \"numero\": \"15 99999-9999\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/usuarios",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"usuarios"
+					],
+					"query": [
+						{
+							"key": "isAtivo",
+							"value": "false",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Pesquisar usuario pelo username",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"cidade\": \"Sorocaba\",\r\n  \"descricao\": \"Outro gatinho do cecato mto fofo\",\r\n  \"estado\": \"SP\",\r\n  \"fotoPet\": \"fotoDoPet2\",\r\n  \"nome\": \"Galego\",\r\n  \"numero\": \"15 99999-9999\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/usuarios/laura",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"usuarios",
+						"laura"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Pesquisar pets pelo nome",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"cidade\": \"Sorocaba\",\r\n  \"descricao\": \"Outro gatinho do cecato mto fofo\",\r\n  \"estado\": \"SP\",\r\n  \"fotoPet\": \"fotoDoPet2\",\r\n  \"nome\": \"Galego\",\r\n  \"numero\": \"15 99999-9999\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/usuarios/pets/malu",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"usuarios",
+						"pets",
+						"malu"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Pesquisa pet por id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/usuarios/pets/6/id",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"usuarios",
+						"pets",
+						"6",
+						"id"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Deleta usuario",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"cidade\": \"Sorocaba\",\r\n  \"descricao\": \"Outro gatinho do cecato mto fofo\",\r\n  \"estado\": \"SP\",\r\n  \"fotoPet\": \"fotoDoPet2\",\r\n  \"nome\": \"Galego\",\r\n  \"numero\": \"15 99999-9999\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/usuarios/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"usuarios",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Deleta pet",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"cidade\": \"Sorocaba\",\r\n  \"descricao\": \"Outro gatinho do cecato mto fofo\",\r\n  \"estado\": \"SP\",\r\n  \"fotoPet\": \"fotoDoPet2\",\r\n  \"nome\": \"Galego\",\r\n  \"numero\": \"15 99999-9999\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/usuarios/4/pets/7",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"usuarios",
+						"4",
+						"pets",
+						"7"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Edicao Usuario",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"cecato@gmail.com\",\r\n    \"cidade\": \"campinas\",\r\n    \"estado\": \"acre\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/usuarios/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"usuarios",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Edicao foto usuario",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"fotoPerfil\": \"imagem\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/usuarios/1/foto",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"usuarios",
+						"1",
+						"foto"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Edicao senha usuario",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"novaSenha\": \"123456\",\r\n  \"senha\": \"12345\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/usuarios/1/senha",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"usuarios",
+						"1",
+						"senha"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Edicao pet",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"numero\": \"456456\",\r\n    \"estado\": \"\",\r\n    \"cidade\": \"City\",\r\n    \"descricao\": \"descricao editada2\",\r\n    \"fotoPet\": \"imagemdopet\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/usuarios/1/pets/2",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"usuarios",
+						"1",
+						"pets",
+						"2"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
