@@ -14,8 +14,10 @@ import project.petme.springboot.tg.domain.responses.GetAllUsuariosPetsResponseBo
 import project.petme.springboot.tg.domain.responses.GetAllUsuariosResponseBody;
 import project.petme.springboot.tg.domain.responses.UsuarioGetResponseBody;
 import project.petme.springboot.tg.repository.UsuarioRepository;
+import project.petme.springboot.tg.util.CriaUsuarioChat;
 
 import javax.persistence.EntityManager;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -29,6 +31,7 @@ public class UsuarioService {
     private final UsuarioRepository usuarioRepository;
     private final PasswordEncoder encoder;
     private final ModelMapper mapper = new ModelMapper();
+    private final CriaUsuarioChat criaUsuarioChat = new CriaUsuarioChat();
 //    Logger logger = LoggerFactory.getLogger(LoggingController.class);
 
     public List<GetAllUsuariosResponseBody> listAll(boolean isAtivo) {
@@ -82,7 +85,7 @@ public class UsuarioService {
         return usuarioBuscado;
     }
 
-    public Usuario save(Usuario usuario) {
+    public Usuario save(Usuario usuario) throws IOException {
         usuario.setSenha(encoder.encode(usuario.getSenha())); //CRIPTOGRAFANDO SENHA
 
         if(usuario.getPets() == null){
@@ -111,8 +114,11 @@ public class UsuarioService {
 
         usuario.setAtivo(true);
 
-        usuarioRepository.save(usuario);
-        return usuario;
+        Usuario usuarioSalvo = usuarioRepository.save(usuario);
+
+        CriaUsuarioChat.criarUsuarioApiChat(String.valueOf(usuarioSalvo.getIdUsuario()), usuarioSalvo.getUsername());
+
+        return usuarioSalvo;
     }
 
     public void delete(long id) {
