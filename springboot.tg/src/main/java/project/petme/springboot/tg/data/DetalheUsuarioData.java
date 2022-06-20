@@ -48,6 +48,6 @@ public class DetalheUsuarioData implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return true;
+        return this.usuario.get().isAtivo();
     }
 }
