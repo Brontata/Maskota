@@ -19,6 +19,7 @@ import project.petme.springboot.tg.service.CurtidaUsuarioPetService;
 import project.petme.springboot.tg.service.PetService;
 import project.petme.springboot.tg.service.UsuarioService;
 
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -56,7 +57,7 @@ public class UsuarioController {
     }
 
     @PostMapping //CRIACAO USUARIO
-    public ResponseEntity<Usuario> save(@RequestBody Usuario usuario){
+    public ResponseEntity<Usuario> save(@RequestBody Usuario usuario) throws IOException {
         System.out.println("### CADASTRANDO USUARIO ###");
         return new ResponseEntity<>(usuarioService.save(usuario), HttpStatus.CREATED);
     }
