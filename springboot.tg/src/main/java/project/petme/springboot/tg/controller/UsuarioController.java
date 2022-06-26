@@ -111,12 +111,12 @@ public class UsuarioController {
         return new ResponseEntity<>(petService.listAll(isAtivo), HttpStatus.OK);
     }
 
-    @GetMapping(path = "/pets/{nome}") //PESQUISA PET PELO NOME
-    public ResponseEntity<List<PetResponseBody>> findPetsByName(@PathVariable String nome){
-        return new ResponseEntity<>(petService.findByName(nome), HttpStatus.OK);
+    @GetMapping(path = "/pets/{parametro}") //PESQUISA PET PELO PARAMETRO
+    public ResponseEntity<List<PetResponseBody>> findPetsByParametro(@PathVariable String parametro, @RequestParam(name = "filtro", required = false, defaultValue = "nome") String filtro){
+        return new ResponseEntity<>(petService.findByParametro(parametro, filtro), HttpStatus.OK);
     }
 
-    @GetMapping(path = "/pets/{id}/id") //PESQUISA PET PELO NOME
+    @GetMapping(path = "/pets/{id}/id") //PESQUISA PET PELO ID
     public ResponseEntity<PetResponseBody> findPetsById(@PathVariable long id){
         return new ResponseEntity<>(petService.pesquisaPetId(id), HttpStatus.OK);
     }

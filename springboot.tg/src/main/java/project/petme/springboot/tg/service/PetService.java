@@ -51,12 +51,25 @@ public class PetService {
         return petsListResponse;
     }
 
-    public List<PetResponseBody> findByName(String nome){
+    public List<PetResponseBody> findByParametro(String parametro, String filtro){
         List<Pet> listaPets = petRepository.findAll();
         List<PetResponseBody> petsListResponse = new ArrayList<>();
 
         listaPets = listaPets.stream()
-                .filter(p -> p.getNome().toLowerCase().contains(nome.toLowerCase())).collect(Collectors.toList());
+                .filter(p -> p.isAtivo() == true).collect(Collectors.toList());
+
+        if (filtro.equals("nome")) {
+            listaPets = listaPets.stream()
+                    .filter(p -> p.getNome().toLowerCase().contains(parametro.toLowerCase())).collect(Collectors.toList());
+        }
+        if (filtro.equals("cidade")) {
+            listaPets = listaPets.stream()
+                    .filter(p -> p.getCidade().toLowerCase().contains(parametro.toLowerCase())).collect(Collectors.toList());
+        }
+        if (filtro.equals("estado")) {
+            listaPets = listaPets.stream()
+                    .filter(p -> p.getEstado().toLowerCase().contains(parametro.toLowerCase())).collect(Collectors.toList());
+        }
 
         for (Pet pet :listaPets) {
             PetResponseBody petResponse = mapper.map(pet, PetResponseBody.class);
